@@ -1,6 +1,5 @@
 package com.application.crud.crudSpringMVC.model;
 
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -35,14 +34,10 @@ public class Pessoa {
 		this.nome = nome;
 		this.dtNasc = dtNasc;
 	}
-	
-	
 
 	public Pessoa() {
 		super();
 	}
-
-
 
 	public Integer getCod() {
 		return cod;
@@ -57,6 +52,9 @@ public class Pessoa {
 	}
 
 	public void setNome(String nome) {
+		if(nome!=null)
+			nome=nome.trim().toUpperCase();
+		
 		this.nome = nome;
 	}
 
