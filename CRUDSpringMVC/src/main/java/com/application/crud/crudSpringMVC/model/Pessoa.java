@@ -1,5 +1,6 @@
 package com.application.crud.crudSpringMVC.model;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,19 +11,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 @Entity
 @Table(name="PESSOA")
 public class Pessoa {
 	
 	@Id
-	@Column
+	@Column(name="COD")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer cod;
 	
-	@Column
+	@NotNull
+	@Column(name="NOME")
 	private String nome;
 	
-	@Column
+	@Column(name="DT_NASC")
 	private Date dtNasc;
 
 	public Pessoa(Integer cod, String nome, Date dtNasc) {
@@ -64,9 +68,15 @@ public class Pessoa {
 		this.dtNasc = dtNasc;
 	}
 	
-	public Date getDtAtual(){
-		Calendar c = Calendar.getInstance();
-		return c.getTime();
+	public Integer getIdade(){
+		Calendar dtNascimento = Calendar.getInstance();
+		dtNascimento.setTime(getDtNasc());;
+		Calendar hoje = Calendar.getInstance();
+
+		//calcula diferença
+		int idade = hoje.get(Calendar.YEAR) - dtNascimento.get(Calendar.YEAR);
+		
+		return idade;
 	}
 
 	@Override
