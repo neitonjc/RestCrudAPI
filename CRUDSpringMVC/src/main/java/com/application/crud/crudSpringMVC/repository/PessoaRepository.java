@@ -9,7 +9,7 @@ import com.application.crud.crudSpringMVC.model.Pessoa;
 public interface PessoaRepository extends Repository<Pessoa, Integer>{
 	
 	List<Pessoa> findAll();
-	Pessoa findById(int cod);
+	Pessoa findById(Integer cod);
 	Pessoa save(Pessoa pessoa);
 	void delete(Pessoa pessoa);
 }
