@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +40,11 @@ public class Controller {
 	public Pessoa incluir(@RequestParam("nome") String nome, 
 						  @RequestParam("dtNasc") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtNasc){
 		return service.incluir(new Pessoa(null, nome, dtNasc));
+	}
+	
+	@PostMapping(path="/incluirObj")
+	public Pessoa incluir(@RequestBody Pessoa pessoa){
+		return service.incluir(pessoa);
 	}
 	
 	@PutMapping(path="/editar")
