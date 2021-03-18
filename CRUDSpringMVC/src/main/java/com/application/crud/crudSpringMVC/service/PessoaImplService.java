@@ -45,7 +45,7 @@ public class PessoaImplService implements PessoaInterfaceService {
 
 	@Override
 	public void excluir(Integer cod) {
-		rep.delete(new Pessoa(cod, null, null));
+		rep.delete(new Pessoa(cod));
 	}
 
 }

@@ -3,8 +3,13 @@ package com.application.crud.crudSpringMVC.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.application.crud.crudSpringMVC.interfaceService.PessoaInterfaceService;
@@ -27,6 +33,7 @@ public class Controller {
 	PessoaInterfaceService service;
 	
 	@GetMapping(path="/listar")
+	@ResponseStatus(HttpStatus.FOUND)
 	public List<Pessoa> listar(){
 		return service.listar();
 	}
@@ -37,22 +44,26 @@ public class Controller {
 	}
 	
 	@PostMapping(path="/incluir")
-	public Pessoa incluir(@RequestParam("nome") String nome, 
-						  @RequestParam("dtNasc") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtNasc){
-		return service.incluir(new Pessoa(null, nome, dtNasc));
+	public ResponseEntity<Pessoa> incluir(@RequestParam("nome") @Valid String nome,
+						  @RequestParam("email") @NotEmpty @Valid String email,
+						  @RequestParam("dtNasc") @Valid @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtNasc){
+		Pessoa p = service.incluir(new Pessoa(null, nome, email, dtNasc));
+		
+		return new ResponseEntity<Pessoa>(p, HttpStatus.CREATED);
 	}
 	
 	@PostMapping(path="/incluirObj")
-	public Pessoa incluir(@RequestBody Pessoa pessoa){
-		return service.incluir(pessoa);
+	public ResponseEntity<Pessoa> incluir(@RequestBody @Valid Pessoa pessoa){
+		return new ResponseEntity<Pessoa>(service.incluir(pessoa), HttpStatus.CREATED);
 	}
 	
 	@PutMapping(path="/editar")
-	public Pessoa editar(@RequestParam("cod") Integer cod,
-						 @RequestParam("nome") String nome, 
-			  			 @RequestParam("dtNasc") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtNasc){
+	public ResponseEntity<Pessoa> editar(@RequestParam("cod") Integer cod,
+						 @RequestParam("nome") @Valid String nome,
+						 @RequestParam("email") @Valid String email,
+			  			 @RequestParam("dtNasc") @Valid @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtNasc){
 		Pessoa p = service.findById(cod);
-		return service.editar(new Pessoa(p.getCod(), nome, dtNasc));
+		return new ResponseEntity<Pessoa>(service.editar(new Pessoa(p.getCod(), nome, email, dtNasc)), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("excluir")
