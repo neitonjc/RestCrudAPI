@@ -42,6 +42,13 @@ public class Controller {
 		return new ResponseEntity<Pessoa>(p, p!=null ? HttpStatus.FOUND : HttpStatus.NOT_FOUND);
 	}
 	
+	@GetMapping(path="/listarPorNome")
+	@ResponseStatus(HttpStatus.FOUND)
+	public List<Pessoa> listarPorNome(@RequestParam("nome") String nome){
+		List<Pessoa> p = service.listarPorNome(nome);
+		return p;
+	}
+	
 	@PostMapping(path="/incluir")
 	public ResponseEntity<Pessoa> incluir(@RequestParam("nome") @Valid String nome,
 										  @RequestParam("cep")  @Valid String cep,
@@ -63,7 +70,7 @@ public class Controller {
 						 @RequestParam("cep")  @Valid String cep,
 						 @RequestParam("email") @Valid String email,
 			  			 @RequestParam("dtNasc") @Valid @DateTimeFormat(pattern = "yyyy-MM-dd") Date dtNasc){
-		Pessoa p = service.findById(cod);
+		Pessoa p = service.listarPorId(cod);
 		return new ResponseEntity<Pessoa>(service.editar(new Pessoa(p.getCod(), nome, email, cep, dtNasc)), HttpStatus.OK);
 	}
 	

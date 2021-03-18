@@ -24,10 +24,6 @@ public class PessoaImplService implements PessoaInterfaceService {
 	public List<Pessoa> listar() {
 		return rep.findAll();
 	}
-	
-	public Pessoa findById(Integer cod) {
-		return rep.findById(cod);
-	}
 
 	@Override
 	public Pessoa listarPorId(Integer cod) {
@@ -73,6 +69,11 @@ public class PessoaImplService implements PessoaInterfaceService {
 				.build();
 		
 		return template.getForEntity(uri.toUriString(), RetornoCepTO.class).getBody();
+	}
+
+	@Override
+	public List<Pessoa> listarPorNome(String nome) {
+		return rep.findByName(nome);
 	}
 
 }

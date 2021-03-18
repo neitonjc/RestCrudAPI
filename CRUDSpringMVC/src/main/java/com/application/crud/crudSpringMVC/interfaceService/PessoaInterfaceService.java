@@ -7,11 +7,16 @@ import com.application.crud.crudSpringMVC.to.RetornoCepTO;
 
 public interface PessoaInterfaceService {
 	List<Pessoa> listar();
-	Pessoa findById(Integer cod);
-	Pessoa listarPorId(Integer cod);
-	Pessoa incluir(Pessoa pessoa);
-	Pessoa editar(Pessoa pessoa);
-	void excluir(Integer cod);
+//	Pessoa findById(Integer cod);
+	public Pessoa listarPorId(Integer cod);
+	
+	public List<Pessoa> listarPorNome(String nome);
+	
+	public Pessoa incluir(Pessoa pessoa);
+	
+	public Pessoa editar(Pessoa pessoa);
+	
+	public void excluir(Integer cod);
 	
 	public RetornoCepTO consumerCEP(String cep);
 }
