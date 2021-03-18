@@ -9,8 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.sun.istack.NotNull;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="PESSOA")
@@ -21,17 +22,30 @@ public class Pessoa {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer cod;
 	
-	@NotNull
+	@NotEmpty
 	@Column(name="NOME")
 	private String nome;
 	
+	@NotEmpty
+	@Email
+	@Column(name="EMAIL")
+	private String email;
+	
+	@NotNull
 	@Column(name="DT_NASC")
 	private Date dtNasc;
+	
 
-	public Pessoa(Integer cod, String nome, Date dtNasc) {
+	public Pessoa(Integer cod) {
 		super();
 		this.cod = cod;
-		this.nome = nome;
+	}
+
+	public Pessoa(Integer cod, String nome, String email, Date dtNasc) {
+		super();
+		this.cod = cod;
+		setNome(nome);
+		this.email = email;
 		this.dtNasc = dtNasc;
 	}
 
@@ -66,6 +80,14 @@ public class Pessoa {
 		this.dtNasc = dtNasc;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Integer getIdade(){
 		Calendar dtNascimento = Calendar.getInstance();
 		dtNascimento.setTime(getDtNasc());;
