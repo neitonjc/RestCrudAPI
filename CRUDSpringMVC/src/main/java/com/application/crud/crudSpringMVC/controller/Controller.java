@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -44,7 +45,7 @@ public class Controller {
 	
 	@GetMapping(path="/listarPorNome")
 	@ResponseStatus(HttpStatus.FOUND)
-	public List<Pessoa> listarPorNome(@RequestParam("nome") String nome){
+	public List<Pessoa> listarPorNome(@RequestParam("nome") @NotNull String nome){
 		List<Pessoa> p = service.listarPorNome(nome);
 		return p;
 	}

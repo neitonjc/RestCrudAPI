@@ -73,7 +73,7 @@ public class PessoaImplService implements PessoaInterfaceService {
 
 	@Override
 	public List<Pessoa> listarPorNome(String nome) {
-		return rep.findByName(nome);
+		return rep.findByName(nome.trim().toUpperCase());
 	}
 
 }
