@@ -31,6 +31,21 @@ public class Pessoa {
 	@Column(name="EMAIL")
 	private String email;
 	
+	@Column(name="CEP")
+	private String cep;
+	
+	@Column(name="RUA")
+	private String rua;
+	
+	@Column(name="BAIRRO")
+	private String bairro;
+	
+	@Column(name="CIDADE")
+	private String cidade;
+	
+	@Column(name="UF")
+	private String uf;
+	
 	@NotNull
 	@Column(name="DT_NASC")
 	private Date dtNasc;
@@ -46,6 +61,16 @@ public class Pessoa {
 		this.cod = cod;
 		setNome(nome);
 		this.email = email;
+		this.dtNasc = dtNasc;
+	}
+	
+	public Pessoa(Integer cod, @NotEmpty String nome, @NotEmpty @Email String email, String cep,
+			@NotNull Date dtNasc) {
+		super();
+		this.cod = cod;
+		setNome(nome);
+		this.email = email;
+		this.cep = cep;
 		this.dtNasc = dtNasc;
 	}
 
@@ -86,6 +111,46 @@ public class Pessoa {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getRua() {
+		return rua;
+	}
+
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 	public Integer getIdade(){
