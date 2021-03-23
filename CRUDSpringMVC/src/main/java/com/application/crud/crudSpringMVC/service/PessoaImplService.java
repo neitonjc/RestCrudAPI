@@ -2,7 +2,6 @@ package com.application.crud.crudSpringMVC.service;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -57,7 +56,6 @@ public class PessoaImplService implements PessoaInterfaceService {
 		rep.delete(new Pessoa(cod));
 	}
 	
-	@Test
 	public RetornoCepTO consumerCEP(String cep){
 		RestTemplate template = new RestTemplate();
 		
